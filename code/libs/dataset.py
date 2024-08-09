@@ -1,12 +1,8 @@
 import random
 import numpy as np
-
 from torch.utils.data.dataloader import default_collate
 from torch.utils.data import Dataset, DataLoader
-
 from .audio import WaveReader
-
-
 
 def make_dataloader(is_train,
                     mix_dir,
@@ -22,8 +18,7 @@ def make_dataloader(is_train,
                       num_workers,
                       chunk_size,
                       )
-
-
+			    
 class My_dataset(Dataset):
     """
     Per Utterance Loader
@@ -73,7 +68,6 @@ class My_dataLoader(object):
             chunk += self.splitter.split(eg)
         return chunk
     
-
     def _merge(self, chunk_list):
         """
         Merge chunk list into mini-batch
@@ -102,7 +96,6 @@ class ChunkSplitter(object):
     """
     def __init__(self, chunk_size, train=True):
         self.chunk_size = chunk_size
-        # self.least = least
         self.train = train
 
     def _make_chunk(self, eg, s):
@@ -118,9 +111,7 @@ class ChunkSplitter(object):
     def split(self, eg):
         N = eg["mix"].size
         chunks = []
-
         if N < self.chunk_size:
-             # too short, again it
             units = self.chunk_size // N
             noisy_ds_final = []
             for i in range(units):
